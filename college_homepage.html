@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Homepage</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico"> <!--FAVICON-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> <!--JQUERY CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> <!--FONTAWESOME CDN-->
+
+    <style>
+        /* global style */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        *::-webkit-scrollbar {
+            height: 0;
+            width: 0;
+        }
+
+        /* header contact*/
+        header .contact {
+            color: white;
+            background: #ca3435;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+        }
+
+        /* navbar style */
+        .sticky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+        }
+
+        /* navbar logo */
+        nav .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        nav .logo .clglogo {
+            height: 50px;
+            width: 50px;
+        }
+
+        nav .logo .clgName {
+            color: #332383;
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin: 0 10px;
+        }
+
+        /* navList style */
+        nav .navList a {
+            color: #ca3435;
+            font-weight: 800;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        nav .navList a:hover {
+            color: white;
+            background: #ca3435;
+            border-radius: 3px;
+        }
+
+        /* CSS -- HEADER (for devices width upto 600px) */
+        @media screen and (max-width: 600px) {
+            header .contact {
+                flex-direction: column;
+                align-items: end;
+            }
+
+            nav .hamburger i {
+                font-weight: 700;
+                font-size: 1.5rem;
+            }
+
+            nav .navList {
+                display: flex;
+                flex-direction: column;
+                height: calc(100vh - 115px);
+                position: absolute;
+                right: 0;
+                top: 115px;
+                background: white;
+                width: 70%;
+            }
+
+            nav .navList a {
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            nav .navList a:hover {
+                border-radius: 0;
+            }
+        }
+
+
+        /* CSS -- MAIN */
+        main {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            padding: 10px;
+        }
+        /* CAROUSEL */
+        main .carousel {
+            grid-column: 1/3;
+            height: 370px;
+        }
+
+        main .carousel div {
+            height: 100%;
+            width: 100%;
+        }
+
+        main .carousel img {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* ABOUT SECTION */
+        main #about {
+            grid-column: 3/-1;
+            text-align: justify;
+        }
+
+        h1::before {
+            content: '';
+            background: #ca3435;
+            display: inline-block;
+            width: 15px;
+            height: 25px;
+            margin-right: 5px;
+        }
+
+        /* DEPARTMENT & FACULTY SECTION */
+        main .dept {
+            grid-column: 1/-1;
+            grid-row: 2;
+            width: calc(100vw - 20px);
+            height: 810px;
+            overflow-x: scroll;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dept #department .streams,
+        .dept #faculty .members {
+            display: flex;
+        }
+
+        .dept #department .streams .stream,
+        .dept #faculty .members .member {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: 700;
+            color: #ca3435;
+        }
+
+        .dept #department .streams .stream img,
+        .dept #faculty .members .member img {
+            height: 160px;
+            width: 300px;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .dept #department .streams .stream span {
+            display: inline;
+            padding: 10px 0;
+            float: left;
+        }
+
+        .dept #faculty .members .member div {
+            color: #000;
+            text-align: left;
+        }
+
+        .dept #faculty .members .member .speech {
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        .dept #faculty .members .member img {
+            height: 200px;
+            width: 230px;
+            margin: 10px 35px;
+        }
+
+        .dept #department .streams button {
+            background: #ca3435;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            float: right;
+            cursor: pointer;
+            border-radius: 0 0 4px 0;
+        }
+
+        /* CSS -- for devices width upto 600px */
+        @media screen and (max-width: 600px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            /* CAROUSRL SECTION */
+            main .carousel {
+                grid-column: 1/-1;
+                grid-row: 1;
+            }
+
+            /* ABOUT SECTION */
+            main #about {
+                grid-column: 1/-1;
+                grid-row: 2;
+            }
+
+            /* DEPARTMENT & FACULTY SECTION */
+            main .dept {
+                grid-column: 1/-1;
+                grid-row: 3;
+                height: 850px;
+            }
+        }
+
+        
+        /* RESEARCH SECTION */
+        main #research {
+            grid-column: 1/-1;
+        }
+
+        main #research .cards {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        main #research .cards .card {
+            width: calc(100% / 4 - 10px * 2);
+            margin: 10px;
+            border: 2px solid crimson;
+            border-radius: 4px;
+            text-align: center;
+            padding: 10px 0;
+            font-weight: 700;
+            color: crimson;
+            font-size: 1.5em;
+        }
+
+        main #research .cards .card .number {
+            font-size: 3rem;
+        }
+
+        main #research h3 {
+            margin: 10px 0;
+        }
+
+        @media screen and (max-width:600px) {
+            /* RESEARCH SECTION */
+            main #research {
+                grid-column: 1/-1;
+                grid-row: 4;
+            }
+            main #research .cards .card {
+                width: calc(100% / 2 - 10px * 2);
+            }
+        }
+
+        /* PLACEMENT SECTION */
+        main #placement {
+            grid-column: 1/-1;
+            grid-row: 4;
+        }
+
+        main #placement .cards {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        main #placement .card {
+            width: calc(100% / 6 - 20px);
+            margin: 10px;
+        }
+
+        main #placement img {
+            height: 100px;
+            width: 100%;
+        }
+
+        @media screen and (max-width: 600px) {
+            main #placement {
+                grid-column: 1/-1;
+                grid-row: 6;
+            }
+
+            main #placement .card {
+                width: calc(100% / 4 - 10px);
+                margin: 5px;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: #1b2632;
+            color: white;
+        }
+
+        footer h1 {
+            grid-column: 1/-1;
+            grid-row: 1;
+        }
+
+        footer .map {
+            grid-column: 1/2;
+            grid-row: 2;
+        }
+
+        footer .address {
+            grid-column: 2/-1;
+            grid-row: 2;
+            padding: 10px;
+        }
+
+        footer .map iframe {    /* GOOGLE MAP */
+            border: none;
+            width: 100%;
+            height: 200px;
+            margin: 10px 0;
+        }
+
+        footer .helpdesk div {
+            margin: 10px 0;
+        }
+
+        @media screen and (max-width: 600px) {
+            footer {
+                grid-template-columns: 1fr;
+            }
+
+            footer .map {   /* GOOGLE MAP */
+                grid-column: 1/-1;
+                grid-row: 2;
+            }
+
+            footer .address {
+                grid-column: 1/-1;
+                grid-row: 3;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script>        //  CUSTOM SCRIPT
+        $(document).ready(function () {
+            $('.hamburger').hide()
+            // sticky navbar
+            $(window).scroll(function () {
+                if ($(window).scrollTop()) {
+                    $('nav').addClass('sticky')
+                }
+                else {
+                    $('nav').removeClass('sticky')
+                }
+            })
+            // for window width 600 or less
+            if (window.innerWidth <= 600) {
+                $('.navList').hide()
+                $('.hamburger').show().click(function () {
+                    $('.navList').toggle()
+                })
+                $('.navList a').click(function () {
+                    $('.navList').hide()
+                })
+                $(window).scroll(function () {
+                    if ($(window).scrollTop()) {
+                        $('.navList').css("margin-top", -55)
+                        $('.navList').css("height", window.innerHeight + 55)
+                    }
+                    else {
+                        $('.navList').css("margin-top", 0)
+                        $('.navList').css("height", window.innerHeight - 55)
+                    }
+                })
+            }
+        // <!-- ########################## -->
+        // <!-- #### CAROUSEL SECTION #### -->
+        // <!-- ########################## -->
+            function carousel() {
+                $('.img1').show()
+                $('.img2').hide()
+                $('.img3').hide()
+                setInterval(function () {
+                    $('.img1').hide()
+                    $('.img2').show()
+                    $('.img3').hide()
+                }, 3000)
+                setInterval(function () {
+                    $('.img1').hide()
+                    $('.img2').hide()
+                    $('.img3').show()
+                }, 6000)
+                setInterval(function () {
+                    $('.img1').show()
+                    $('.img2').hide()
+                    $('.img3').hide()
+                }, 9000)
+            }
+            carousel();
+        })
+    </script>
+    <header>
+        <div class="contact">
+            <div class="email">Email: helpdesk@college.com</div>
+            <div class="email">Phone: +91 9876543210</div>
+        </div>
+        <!-- ################################# -->
+        <!-- #### HEADER > NAVBAR SECTION #### -->
+        <!-- ################################# -->
+        <nav>
+            <div class="logo">
+                <img src="favicon.ico" alt="Logo" class="clglogo">
+                <div class="clgName">Engineering College</div>
+            </div>
+            <div class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="navList">
+                <a href="#about">About Us</a>
+                <a href="#department">Department</a>
+                <a href="#faculty">Faculty</a>
+                <a href="#research">Research</a>
+                <a href="#placement">Placement</a>
+                <a href="#Contact">Contact Us</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ################################# -->
+        <!-- #### MAIN > CAROUSEL SECTION #### -->
+        <!-- ################################# -->
+        <div class="carousel">
+            <div class="img1"><img src="https://educationalinformationindia.files.wordpress.com/2016/12/2506ot2.jpg"
+                    alt=""></div>
+            <div class="img2"><img
+                    src="https://i2.wp.com/edupadhai.com/wp-content/uploads/2018/06/bms_college_of_engineering.jpg"
+                    alt=""></div>
+            <div class="img3"><img src="https://www.duupdates.in/wp-content/uploads/2017/11/image003.png" alt=""></div>
+        </div>
+        <!-- ################################# -->
+        <!-- #### MAIN > ABOUT US SECTION #### -->
+        <!-- ################################# -->
+        <div id="about">
+            <h1>About Us</h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam vel veniam at corrupti dignissimos animi
+                eligendi praesentium provident laudantium asperiores tempora labore eos perspiciatis a officiis nihil
+                quo minus, iure nostrum delectus iste repellendus. Quos sit dolore facere repellat, expedita
+                reprehenderit facilis praesentium asperiores aspernatur. Doloribus, laudantium quam, magni veniam
+                eligendi consequatur labore nulla dolorem itaque libero sunt officia amet deserunt debitis odit porro ea
+                ipsam facere sit earum molestias suscipit quia! Cumque dicta maiores ut molestias, explicabo culpa
+                cupiditate beatae! Vero quidem facilis, aliquam repellendus illo numquam ea nulla reiciendis voluptate.
+                Aliquid magnam totam perferendis autem, dignissimos vitae dicta earum porro commodi reiciendis dolores
+                tenetur eos doloremque blanditiis maiores ad quae ea rerum nulla unde non voluptatum? Qui non nisi
+                dolores nesciunt ab quibusdam odio eligendi impedit? Eos aperiam nisi facere, iure ab accusamus adipisci
+                tenetur perferencia modi ab perspiciatis sunt inventore maxime omnis, distinctio alias
+                eligendi illo eum neque autem nobis doloribus atque? Alias ab dolores repellendus, error earum sapiente,
+                sint harum officiis aliquid iusto at similique nulla? Maxime debitis possimus, quod accusantium officiis
+                sed aut voluptate temporibus aspernatur commodi dolorem doloremque. Nihil quod quibusdam molestias
+                dolorum consectetur facere quaerat, accusantium facilis, deserunt ullam cupiditate dolorem ducimus
+                reiciendis maiores nisi ad illo mollitia eveniet suscipit possimus temporibus tempore officiis. Dolores
+                voluptates ut ea excepturi molestias distinctio!
+            </p>
+        </div>
+        <div class="dept">
+            <!-- ################################### -->
+            <!-- #### MAIN > DEPARTMENT SECTION #### -->
+            <!-- ################################### -->
+            <div id="department">
+                <h1>Department</h1>
+                <div class="streams">
+                    <div class="stream">
+                        <img src="https://iis.stkabirschool.com/wp-content/uploads/2018/07/Computer-Lab-5.jpg" alt="">
+                        <span>Computer Science</span>
+                        <button>Enroll now</button>
+                    </div>
+                    <div class="stream">
+                        <img src="https://www.acsce.edu.in/acsce/wp-content/uploads/2013/07/computer-lab1.jpg" alt="">
+                        <span>Information Technology</span>
+                        <button>Enroll now</button>
+                    </div>
+                    <div class="stream">
+                        <img src="https://indrashiluniversity.edu.in/assets/images/btech-labs/mech-3.JPG" alt="">
+                        <span>Mechanical Engineering</span>
+                        <button>Enroll now</button>
+                    </div>
+                    <div class="stream">
+                        <img src="https://4.bp.blogspot.com/-yyGutx9XjnQ/VYpVJZIfPhI/AAAAAAAAAjo/L7taiN1Yo20/s320/Best%2Bcivil%2Bengineering%2BCollege%2Bin%2BIndia.jpg"
+                            alt="">
+                        <span>Civil Engineering</span>
+                        <button>Enroll now</button>
+                    </div>
+                    <div class="stream">
+                        <img src="https://ee.iitgn.ac.in/site/wp-content/uploads/2020/09/Electrical-Lab-1.1-2.jpg"
+                            alt="">
+                        <span>Electrical Engineering</span>
+                        <button>Enroll now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- ################################## -->
+            <!-- ##### MAIN > FACULTY SECTION ##### -->
+            <!-- ################################## -->
+            <div id="faculty">
+                <h1>Faculty</h1>
+                <div class="members">
+                    <div class="member">
+                        <p>H.O.D. - Computer Science</p>
+                        <img src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"
+                            alt="">
+                        <div class="name">Name : Mr. Abc Xyz</div>
+                        <div class="speech">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut voluptas quam nisi pariatur
+                            veritatis cupiditate! Amet voluptas fuga laboriosam ratione nemo debitis dolor? Sed aperiam
+                            ipsa architecto aspernatur earum deleniti obcaecati qui, reprehenderit ipsum fugit cumque
+                            mollitia, sint assumenda veritatis sapiente hic eum molestiae! Autem possimus amet eaque
+                            deserunt fuga.
+                        </div>
+                    </div>
+                    <div class="member">
+                        <p>H.O.D. - Information Technology</p>
+                        <img src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"
+                            alt="">
+                        <div class="name">Name : Mr. Abc Xyz</div>
+                        <div class="speech">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut voluptas quam nisi pariatur
+                            veritatis cupiditate! Amet voluptas fuga laboriosam ratione nemo debitis dolor? Sed aperiam
+                            ipsa architecto aspernatur earum deleniti obcaecati qui, reprehenderit ipsum fugit cumque
+                            mollitia, sint assumenda veritatis sapiente hic eum molestiae! Autem possimus amet eaque
+                            deserunt fuga.
+                        </div>
+                    </div>
+                    <div class="member">
+                        <p>H.O.D. - Mechanical Engineering</p>
+                        <img src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"
+                            alt="">
+                        <div class="name">Name : Mr. Abc Xyz</div>
+                        <div class="speech">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut voluptas quam nisi pariatur
+                            veritatis cupiditate! Amet voluptas fuga laboriosam ratione nemo debitis dolor? Sed aperiam
+                            ipsa architecto aspernatur earum deleniti obcaecati qui, reprehenderit ipsum fugit cumque
+                            mollitia, sint assumenda veritatis sapiente hic eum molestiae! Autem possimus amet eaque
+                            deserunt fuga.
+                        </div>
+                    </div>
+                    <div class="member">
+                        <p>H.O.D. - Civil Engineering</p>
+                        <img src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"
+                            alt="">
+                        <div class="name">Name : Mr. Abc Xyz</div>
+                        <div class="speech">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut voluptas quam nisi pariatur
+                            veritatis cupiditate! Amet voluptas fuga laboriosam ratione nemo debitis dolor? Sed aperiam
+                            ipsa architecto aspernatur earum deleniti obcaecati qui, reprehenderit ipsum fugit cumque
+                            mollitia, sint assumenda veritatis sapiente hic eum molestiae! Autem possimus amet eaque
+                            deserunt fuga.
+                        </div>
+                    </div>
+                    <div class="member">
+                        <p>H.O.D. - Electrical Engineering</p>
+                        <img src="https://png.pngtree.com/png-vector/20190710/ourlarge/pngtree-user-vector-avatar-png-image_1541962.jpg"
+                            alt="">
+                        <div class="name">Name : Mr. Abc Xyz</div>
+                        <div class="speech">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut voluptas quam nisi pariatur
+                            veritatis cupiditate! Amet voluptas fuga laboriosam ratione nemo debitis dolor? Sed aperiam
+                            ipsa architecto aspernatur earum deleniti obcaecati qui, reprehenderit ipsum fugit cumque
+                            mollitia, sint assumenda veritatis sapiente hic eum molestiae! Autem possimus amet eaque
+                            deserunt fuga.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ################################# -->
+        <!-- #### MAIN > RESEARCH SECTION #### -->
+        <!-- ################################# -->
+        <div id="research">
+            <h1>Research</h1>
+            <p>Research is the back bone of academics. For the promotion of research, institute has Research and
+                Development Cell.</p>
+            <div class="cards">
+                <div class="card">
+                    <p class="number">10</p>
+                    <p class="title">Doctrates</p>
+                </div>
+                <div class="card">
+                    <p class="number">8</p>
+                    <p class="title">Projects</p>
+                </div>
+                <div class="card">
+                    <p class="number">35</p>
+                    <p class="title">Publications</p>
+                </div>
+                <div class="card">
+                    <p class="number">26</p>
+                    <p class="title">Patents</p>
+                </div>
+            </div>
+            <h3>R&D Cell Overview</h3>
+            R&D Cell which aims to nurture research culture in the College by promoting research in newly emerging and
+            challenging frontier areas of Engineering, Technology, Science and Humanities.
+            It encourages the students and faculty to undertake the research in newly emerging frontier areas including
+            multidisciplinary fields. This enhances the general research capability of budding technocrats by way of
+            participating in conferences, seminars, workshops, project competition, etc.
+        </div>
+
+        <!-- ################################## -->
+        <!-- #### MAIN > PLACEMENT SECTION #### -->
+        <!-- ################################## -->
+        <div id="placement">
+            <h1>Placement</h1>
+            <div class="cards">
+                <div class="card"><img src="favicon.ico" alt=""></div>
+                <div class="card"><img src="https://www.tcsamsterdammarathon.eu/uploads/tcs-logo.png" alt="TCS"></div>
+                <div class="card"><img
+                        src="https://www.passionateinmarketing.com/wp-content/uploads/2020/07/Wipro_Logo_Print_CMYK-e1493789039358.jpg"
+                        alt="Wipro"></div>
+                <div class="card"><img src="https://www.optimumdesign.in/img/LnTlogo1.jpg" alt="L&T"></div>
+                <div class="card"><img
+                        src="https://careermap.co.uk/wp-content/uploads/2018/03/xTATA-Steel-logo.jpg.pagespeed.ic.1yF-0vnz8q.jpg"
+                        alt="TATA Steel"></div>
+                <div class="card"><img
+                        src="https://cdn-0.motorcycle-logos.com/wp-content/uploads/2016/11/Mahindra-logo-768x409.png"
+                        alt="Mahindra"></div>
+                <div class="card"><img
+                        src="https://www.kindpng.com/picc/m/71-718050_lti-interview-questions-and-answers-l-t-infotech.png"
+                        alt="L&T Infotech"></div>
+                <div class="card"><img src="https://www.aiesec.in/wp-content/uploads/2019/10/Adani-Logo-1030x303.png"
+                        alt="Adani"></div>
+                <div class="card"><img
+                        src="http://1.bp.blogspot.com/-KPheqctGqxI/UnR9zCksneI/AAAAAAAAAv8/_WAEr2dTs6A/s320/havells+logo+rgb.jpg"
+                        alt="Havells"></div>
+                <div class="card"><img
+                        src="https://www.creativesocialintranet.com/wp-content/uploads/2018/07/hccclient.png" alt="HCC">
+                </div>
+                <div class="card"><img src="https://mma.prnewswire.com/media/633365/Infosys_Logo.jpg?w=200"
+                        alt="Infosys"></div>
+                <div class="card"><img
+                        src="https://logodownload.org/wp-content/uploads/2019/10/reliance-industries-logo-1.png"
+                        alt="Reliance"></div>
+            </div>
+        </div>
+    </main>
+    <!-- ################ -->
+    <!-- #### FOOTER #### -->
+    <!-- ################ -->
+    <footer id="Contact">
+        <h1>Contact Us</h1>
+        <div class="map">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.256219120918!2d73.91161787402926!3d18.56248396789483!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc29549e9ddd8e1%3A0xf57b5e702d9a0c8b!2sPHN%20Technology%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1682536965468!5m2!1sen!2sin"></iframe>
+        </div>
+        <div class="address">
+            <div class="location">
+                <i class="fa-solid fa-location-dot" style="color: #ffffff;"></i> ABC Building
+            </div>
+            <div class="helpdesk">
+                <div class="email"><i class="fa-solid fa-envelope" style="color: #ffffff;"></i> helpdesk@college.com
+                </div>
+                <div class="phone"><i class="fa-solid fa-phone" style="color: #ffffff;"></i> +91 9876543210</div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
